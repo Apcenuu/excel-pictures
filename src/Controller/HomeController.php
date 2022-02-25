@@ -14,13 +14,23 @@ class HomeController extends AbstractController
         return $this->render('index.html.twig');
     }
 
-    public function downloadOrders()
+    public function downloadOrders($count)
     {
+        if ($count <= 20) {
+            $count = 20;
+        }
+        if ($count > 20 && $count <= 100) {
+            $count = 100;
+        }
+        if ($count > 100) {
+            $count = 100;
+        }
+
         $excelService = new ExcelService();
         $apiUrl = $this->getParameter('app.api_url');
         $apiKey = $this->getParameter('app.api_key');
         $apiService = new ApiService($apiUrl, $apiKey);
-        $orders = $apiService->getOrders(100);
+        $orders = $apiService->getOrders($count);
         $products = $apiService->getProductsByOrders($orders);
 
         $content = $excelService->generateXlsx($products, $orders);

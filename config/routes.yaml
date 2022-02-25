@@ -2,5 +2,5 @@ index:
     path: /
     controller: App\Controller\HomeController::index
 download_orders:
-    path: /orders.xlsx
+    path: /{count}/orders.xlsx
     controller: App\Controller\HomeController::downloadOrders

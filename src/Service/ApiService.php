@@ -68,17 +68,6 @@ class ApiService
         return $products;
     }
 
-    public function getProductGroups()
-    {
-        $request = new ProductGroupsRequest();
-        $filter = new ProductGroupFilterType();
-        $request->filter = $filter;
-        $request->limit = 100;
-        $response = $this->client->store->productGroups($request);
-        dump($response);die;
-
-    }
-
     public function getProductGroupById($categoryId)
     {
         $request = new ProductGroupsRequest();
