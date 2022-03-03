@@ -38,8 +38,7 @@ class ApiService
         $request = new ProductsRequest();
         $filter = new ProductFilterType();
         $request->filter = $filter;
-        $filter->offerExternalId = $id;
-//        $filter->ids = [$id];
+        $filter->offerIds = [$id];
         $response = $this->client->store->products($request);
 
         return array_shift($response->products);
@@ -58,7 +57,6 @@ class ApiService
             $response = $this->client->store->products($request);
 
             foreach ($response->products as $product) {
-//                dump($product);die;
                 $products[] = $product;
             }
             $page++;
@@ -92,8 +90,8 @@ class ApiService
         $products = [];
         foreach ($orders as $order) {
             foreach ($order->items as $item) {
-                $product = $this->getProduct($item->offer->externalId);
-                $products[$order->id] = $product;
+                $product = $this->getProduct($item->offer->id);
+                $products[$item->offer->id] = $product;
             }
         }
         return $products;
